@@ -1,0 +1,23 @@
+// Apply the java plugin to add support for Java
+apply plugin: 'java'
+
+// In this section you declare where to find the dependencies of your project
+repositories {
+    jcenter()
+}
+
+// In this section you declare the dependencies for your production and test code
+dependencies {
+    // The production code uses the SLF4J logging API at compile time
+    compile 'org.slf4j:slf4j-api:1.7.21'
+
+    // Test dependencies
+    testCompile 'org.slf4j:slf4j-simple:1.7.21'
+    testCompile 'junit:junit:4.12'
+}
+
+test {
+    testLogging {
+        events "passed", "skipped", "failed", "standardError"
+    }
+}
