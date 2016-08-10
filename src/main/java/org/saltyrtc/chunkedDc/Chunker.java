@@ -9,7 +9,6 @@
 package org.saltyrtc.chunkedDc;
 
 import org.slf4j.Logger;
-
 import java.nio.ByteBuffer;
 
 /**
@@ -69,6 +68,7 @@ public class Chunker {
         final int id = UnsignedHelper.getUnsignedInt(this.id);
         final int serial = UnsignedHelper.getUnsignedInt(this.nextSerial());
 
+        // Write to chunk buffer
         chunk.put(config);
         chunk.putInt(id);
         chunk.putInt(serial);
@@ -79,7 +79,7 @@ public class Chunker {
     }
 
     /**
-     * Return the id of the next block
+     * Return and post-increment the id of the next block
      */
     private int nextSerial() {
         return this.chunkId++;
