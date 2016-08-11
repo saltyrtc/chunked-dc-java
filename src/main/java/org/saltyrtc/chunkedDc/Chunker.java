@@ -11,20 +11,10 @@ package org.saltyrtc.chunkedDc;
 import java.nio.ByteBuffer;
 
 /**
- * A chunker instance splits up a ByteBuffer into multiple chunks.
+ * A Chunker instance splits up a ByteBuffer into multiple chunks.
  *
- * A header is added to each chunk:
- *
- * |C|IIII|SSSS|
- *
- * - C: Configuration bitfield (1 byte)
- * - I: Id (4 bytes)
- * - S: Serial number (4 bytes)
- *
- * The configuration bitfield looks as follows:
- *
- * |000000E|
- *        ^---- End-of-message
+ * The Chunker is initialized with an ID. For each message to be chunked,
+ * a new Chunker instance is required.
  */
 public class Chunker {
 
@@ -32,8 +22,6 @@ public class Chunker {
     private final ByteBuffer buf;
     private final int chunkSize;
     private int chunkId;
-
-    public static int HEADER_LENGTH = 9;
 
     /**
      * Create a Chunker instance.
@@ -74,7 +62,7 @@ public class Chunker {
         // Allocate chunk buffer
         final int remaining = this.buf.remaining();
         final int chunkBytes = remaining < this.chunkSize ? remaining : this.chunkSize;
-        final ByteBuffer chunk = ByteBuffer.allocate(chunkBytes + HEADER_LENGTH);
+        final ByteBuffer chunk = ByteBuffer.allocate(chunkBytes + Common.HEADER_LENGTH);
 
         // Create header
         final byte config = remaining > chunkBytes ? (byte) 0 : (byte) 1;
