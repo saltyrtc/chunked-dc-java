@@ -61,8 +61,6 @@ public class Unchunker {
          * Note: This implementation assumes that no chunk will be larger than the first one!
          * If this is not the case, a `BufferOverflowException` may be thrown.
          *
-         * TODO: Catch that problem early on!
-         *
          * @return A `ByteBuffer` containing the assembled message.
          * @throws IllegalStateException if message is not yet complete.
          */
