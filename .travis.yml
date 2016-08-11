@@ -11,3 +11,9 @@ cache:
   directories:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
+after_success:
+  - >
+    test "${TRAVIS_BRANCH}" = 'master' &&
+    test "${TRAVIS_PULL_REQUEST}" = 'false' &&
+    test "${TRAVIS_JDK_VERSION}" = 'oraclejdk7' &&
+    ./gradlew jacocoTestReport coveralls

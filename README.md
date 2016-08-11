@@ -1,6 +1,7 @@
 # Binary Chunking for WebRTC DataChannels
 
 [![Travis](https://img.shields.io/travis/saltyrtc/chunked-dc-java/master.svg)](https://travis-ci.org/saltyrtc/chunked-dc-java)
+[![Coverage](https://img.shields.io/coveralls/saltyrtc/chunked-dc-java/master.svg?maxAge=2592000)](https://coveralls.io/github/saltyrtc/chunked-dc-java)
 [![Java Version](https://img.shields.io/badge/java-7%2B-orange.svg)](https://github.com/saltyrtc/chunked-dc-java)
 [![License](https://img.shields.io/badge/license-MIT%20%2F%20Apache%202.0-blue.svg)](https://github.com/saltyrtc/chunked-dc-java)
 
@@ -95,6 +96,18 @@ increment the counter for each message.
 The Serial must start at 0 and be incremented after every message.
 
 No chunk may contain more bytes than the first one.
+
+## Testing
+
+To test from the command line:
+
+    ./gradlew test
+
+To run tests and generate coverage reports:
+
+    ./gradlew test jacocoTestReport
+
+You'll find the reports at `build/reports/jacoco/test/html/index.html`.
 
 ## License
 

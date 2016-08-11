@@ -1,5 +1,11 @@
-// Apply the java plugin to add support for Java
-apply plugin: 'java'
+plugins {
+    // Java support
+    id 'java'
+
+    // Coverage reporting on coveralls.io
+    id 'jacoco'
+    id 'com.github.kt3k.coveralls' version '2.6.3'
+}
 
 // In this section you declare where to find the dependencies of your project
 repositories {
@@ -15,5 +21,12 @@ dependencies {
 test {
     testLogging {
         events "passed", "skipped", "failed", "standardError"
+    }
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled = true // coveralls plugin depends on xml format report
+        html.enabled = true
     }
 }
