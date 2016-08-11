@@ -1,10 +1,15 @@
 plugins {
-    // Java support
+    // Base
     id 'java'
 
     // Coverage reporting on coveralls.io
     id 'jacoco'
     id 'com.github.kt3k.coveralls' version '2.6.3'
+
+    // Publishing on bintray
+    id 'maven'
+    id 'maven-publish'
+    id 'com.jfrog.bintray' version '1.7'
 }
 
 // In this section you declare where to find the dependencies of your project
@@ -28,5 +33,33 @@ jacocoTestReport {
     reports {
         xml.enabled = true // coveralls plugin depends on xml format report
         html.enabled = true
+    }
+}
+
+publishing {
+    publications {
+        LibraryPublication(MavenPublication) {
+            from components.java
+            groupId 'saltyrtc'
+            artifactId 'chunked-dc'
+            version '0.1.0'
+        }
+    }
+}
+
+bintray {
+    user = System.getenv('BINTRAY_USER')
+    key = System.getenv('BINTRAY_KEY')
+    pkg {
+        repo = 'maven'
+        name = 'chunked-dc'
+        licenses = ['MIT', 'Apache-2.0']
+        vcsUrl = 'https://github.com/saltyrtc/chunked-dc.git'
+        version {
+            name = '0.1.0'
+            desc = 'ChunkedDC Library v0.1.0'
+            released = new Date()
+            vcsTag = 'v0.1.0'
+        }
     }
 }

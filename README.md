@@ -119,6 +119,14 @@ To run tests and generate coverage reports:
 
 You'll find the reports at `build/reports/jacoco/test/html/index.html`.
 
+## Publishing
+
+To publish this library to Bintray:
+
+    export BINTRAY_USER=...
+    export BINTRAY_KEY=...
+    ./gradlew build bintrayUpload
+
 ## License
 
     Copyright (c) 2016 Threema GmbH / SaltyRTC Contributors
