@@ -38,7 +38,7 @@ jacocoTestReport {
 
 publishing {
     publications {
-        LibraryPublication(MavenPublication) {
+        ChunkedDC(MavenPublication) {
             from components.java
             groupId 'saltyrtc'
             artifactId 'chunked-dc'
@@ -50,9 +50,11 @@ publishing {
 bintray {
     user = System.getenv('BINTRAY_USER')
     key = System.getenv('BINTRAY_KEY')
+    publications = ['ChunkedDC']
     pkg {
         repo = 'maven'
         name = 'chunked-dc'
+        userOrg = 'saltyrtc'
         licenses = ['MIT', 'Apache-2.0']
         vcsUrl = 'https://github.com/saltyrtc/chunked-dc.git'
         version {

@@ -125,7 +125,7 @@ To publish this library to Bintray:
 
     export BINTRAY_USER=...
     export BINTRAY_KEY=...
-    ./gradlew build bintrayUpload
+    ./gradlew build publish bintrayUpload
 
 ## License
 
