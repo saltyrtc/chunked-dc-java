@@ -13,30 +13,6 @@ This allows you to send the chunks to the receiver in any order.
 While the library was written for use with WebRTC DataChannels, it can also be
 used outside of that scope.
 
-## Format
-
-A chunker instance splits up a ByteBuffer into multiple chunks.
-
-A header is added to each chunk:
-
-    |C|IIII|SSSS|
-
-    - C: Configuration bitfield (1 byte)
-    - I: Id (4 bytes)
-    - S: Serial number (4 bytes)
-
-The configuration bitfield looks as follows:
-
-    |000000E|
-           ^---- End-of-message
-
-The Id can be any number, but it's recommended to start at 0 and
-increment the counter for each message.
-
-The Serial must start at 0 and be incremented after every message.
-
-No chunk may contain more bytes than the first one.
-
 ## Usage
 
 ### Chunking
@@ -95,6 +71,30 @@ unchunker.add(chunk);
 ## Thread Safety
 
 All classes exposed by this library should be thread safe.
+
+## Format
+
+A chunker instance splits up a ByteBuffer into multiple chunks.
+
+A header is added to each chunk:
+
+    |C|IIII|SSSS|
+
+    - C: Configuration bitfield (1 byte)
+    - I: Id (4 bytes)
+    - S: Serial number (4 bytes)
+
+The configuration bitfield looks as follows:
+
+    |000000E|
+           ^---- End-of-message
+
+The Id can be any number, but it's recommended to start at 0 and
+increment the counter for each message.
+
+The Serial must start at 0 and be incremented after every message.
+
+No chunk may contain more bytes than the first one.
 
 ## License
 
