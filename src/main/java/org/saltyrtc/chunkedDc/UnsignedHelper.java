@@ -12,6 +12,8 @@ package org.saltyrtc.chunkedDc;
  * Tools for signed/unsigned conversion.
  *
  * Oh, Java. I thought I'd never need to manually apply two's complement anymore :(
+ *
+ * Source: https://github.com/saltyrtc/saltyrtc-client-java/blob/master/src/main/java/org/saltyrtc/client/helpers/UnsignedHelper.java
  */
 public class UnsignedHelper {
 
