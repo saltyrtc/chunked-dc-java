@@ -8,7 +8,6 @@
 
 package org.saltyrtc.chunkedDc;
 
-import org.slf4j.Logger;
 import java.nio.ByteBuffer;
 
 /**
@@ -29,15 +28,11 @@ import java.nio.ByteBuffer;
  */
 public class Chunker {
 
-    // Logger
-    private static final Logger LOG = org.slf4j.LoggerFactory.getLogger("ChunkedDC");
-
     private final long id;
     private final ByteBuffer buf;
     private final int chunkSize;
     private int chunkId;
 
-    @SuppressWarnings("FieldCanBeLocal")
     public static int HEADER_LENGTH = 9;
 
     /**
@@ -46,8 +41,16 @@ public class Chunker {
      * @param id An identifier for the chunk. Must be betwen 0 and 2**32-1.
      * @param buf The ByteBuffer containing the data that should be chunked.
      * @param chunkSize The chunk size *excluding* header data.
+     * @throws IllegalArgumentException if chunk size is less than 1
+     * @throws IllegalArgumentException if buffer is empty
      */
     public Chunker(long id, ByteBuffer buf, int chunkSize) {
+        if (chunkSize < 1) {
+            throw new IllegalArgumentException("Chunk size must be at least 1");
+        }
+        if (!buf.hasRemaining()) {
+            throw new IllegalArgumentException("Buffer may not be empty");
+        }
         this.id = id;
         this.buf = buf;
         this.chunkSize = chunkSize;
@@ -55,16 +58,26 @@ public class Chunker {
     }
 
     /**
-     * Return the next chunk.
+     * Whether there are more chunks available.
+     */
+    public boolean hasNext() {
+        return this.buf.hasRemaining();
+    }
+
+    /**
+     * Return the next chunk, or `null` if there are no chunks remaining.
      */
     public ByteBuffer next() {
+        if (!hasNext()) {
+            return null;
+        }
         // Allocate chunk buffer
         final int remaining = this.buf.remaining();
         final int chunkBytes = remaining < this.chunkSize ? remaining : this.chunkSize;
         final ByteBuffer chunk = ByteBuffer.allocate(chunkBytes + HEADER_LENGTH);
 
         // Create header
-        final byte config = remaining > chunkBytes ? (byte) 1 : (byte) 0;
+        final byte config = remaining > chunkBytes ? (byte) 0 : (byte) 1;
         final int id = UnsignedHelper.getUnsignedInt(this.id);
         final int serial = UnsignedHelper.getUnsignedInt(this.nextSerial());
 
