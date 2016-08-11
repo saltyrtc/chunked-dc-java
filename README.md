@@ -69,6 +69,16 @@ ByteBuffer chunk = ...;
 unchunker.add(chunk);
 ```
 
+### Cleanup
+
+Because the `Unchunker` instance needs to keep track of arrived chunks, it's
+possible that incomplete messages add up and use a lot of memory without ever
+being freed.
+
+To avoid this, simply call the `Unchunker.gc(long maxAge)` method regularly.
+It will remove all incomplete messages that haven't been updated for more than
+`maxAge` milliseconds.
+
 ## Thread Safety
 
 All classes exposed by this library should be thread safe.

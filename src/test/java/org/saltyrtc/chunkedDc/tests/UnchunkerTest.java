@@ -198,4 +198,17 @@ public class UnchunkerTest {
         assertArrayEquals(new byte[] { 1,2,3,4,5,6,7,8 }, logger.messages.get(0));
     }
 
+    @Test
+    public void testGarbageCollection() throws InterruptedException {
+        final Unchunker unchunker = new Unchunker();
+        assertEquals(0, unchunker.gc(1000));
+        unchunker.add(ByteBuffer.wrap(new byte[] { MORE, 0,0,0,0, 0,0,0,0, 1,2,3 }));
+        unchunker.add(ByteBuffer.wrap(new byte[] { MORE, 0,0,0,0, 0,0,0,1, 4,5,6 }));
+        unchunker.add(ByteBuffer.wrap(new byte[] { MORE, 0,0,0,1, 0,0,0,0, 1,2,3 }));
+        Thread.sleep(20);
+        assertEquals(0, unchunker.gc(1000));
+        assertEquals(3, unchunker.gc(10));
+        assertEquals(0, unchunker.gc(10));
+    }
+
 }

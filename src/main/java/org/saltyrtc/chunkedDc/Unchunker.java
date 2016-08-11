@@ -10,6 +10,7 @@ package org.saltyrtc.chunkedDc;
 
 import java.nio.ByteBuffer;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -35,10 +36,12 @@ public class Unchunker {
     private static class ChunkCollector {
         private boolean endArrived = false;
         private Long messageLength = null;
-        private SortedSet<Chunk> chunks = new TreeSet<>();
+        private final SortedSet<Chunk> chunks = new TreeSet<>();
+        private long lastUpdate = System.nanoTime();
 
         public void addChunk(Chunk chunk) {
             this.chunks.add(chunk);
+            this.lastUpdate = System.nanoTime();
             if (chunk.isEndOfMessage()) {
                 this.endArrived = true;
                 this.messageLength = chunk.getSerial() + 1;
@@ -81,6 +84,14 @@ public class Unchunker {
 
             buf.flip();
             return buf;
+        }
+
+        /**
+         * Return whether last chunk is older than the specified number of miliseconds.
+         */
+        public boolean isOlderThan(long maxAge) {
+            final long age = (System.nanoTime() - this.lastUpdate) / 1000 / 1000;
+            return age > maxAge;
         }
     }
 
@@ -139,6 +150,28 @@ public class Unchunker {
         }
     }
 
-    // TODO: Add cleanup/gc method
+    /**
+     * Run garbage collection, remove incomplete messages that haven't been
+     * updated for more than the specified number of milliseconds.
+     *
+     * If you want to make sure that invalid chunks don't fill up memory, call
+     * this method regularly.
+     *
+     * @param maxAge Remove incomplete messages that haven't been updated for
+     *               more than the specified number of milliseconds.
+     * @return the number of removed chunks.
+     */
+    public synchronized int gc(long maxAge) {
+        final Iterator<Map.Entry<Long, ChunkCollector>> it = this.chunks.entrySet().iterator();
+        int removedItems = 0;
+        while (it.hasNext()) {
+            Map.Entry<Long, ChunkCollector> entry = it.next();
+            if (entry.getValue().isOlderThan(maxAge)) {
+                removedItems += entry.getValue().chunks.size();
+                it.remove();
+            }
+        }
+        return removedItems;
+    }
 
 }
