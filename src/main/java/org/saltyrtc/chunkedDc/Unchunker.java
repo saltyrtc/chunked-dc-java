@@ -104,6 +104,7 @@ public class Unchunker {
         // If this is the only chunk in the message, return it immediately.
         if (chunk.isEndOfMessage() && chunk.getSerial() == 0) {
             this.notifyListener(ByteBuffer.wrap(chunk.getData()));
+            return;
         }
 
         // Otherwise, add chunk to chunks list
