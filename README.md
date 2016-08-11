@@ -47,7 +47,7 @@ For each message that you want to split into chunks, pass it to a `Chunker`.
 long messageId = 1337;
 ByteBuffer message = ByteBuffer.wrap(new byte[] { 1, 2, 3, 4, 5 });
 int chunkSize = 2;
-Chunker chunker = new Chunker(messageId, buf, chunkSize);
+Chunker chunker = new Chunker(messageId, message, chunkSize);
 ```
 
 You can then process all chunks:
@@ -58,6 +58,8 @@ while (chunker.hasNext()) {
     // Send chunk to peer
 }
 ```
+
+The example above will return 3 chunks: `[1, 2], [3, 4], [5]`.
 
 ### Unchunking
 
