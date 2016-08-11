@@ -138,7 +138,7 @@ public class UnchunkerTest {
     }
 
     /**
-     * Add two messages with same serial.
+     * Add two messages with same serial. Ignore the second.
      */
     @Test
     public void testDuplicateSerial() {
@@ -151,7 +151,6 @@ public class UnchunkerTest {
 
         assertEquals(1, logger.messages.size());
         assertArrayEquals(new byte[] { 1, 2, 5, 6 }, logger.messages.get(0));
-        // TODO: Is this correct?
     }
 
     /**
