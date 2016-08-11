@@ -2,6 +2,7 @@
 
 [![Travis](https://img.shields.io/travis/saltyrtc/chunked-dc-java/master.svg)](https://travis-ci.org/saltyrtc/chunked-dc-java)
 [![Coverage](https://img.shields.io/coveralls/saltyrtc/chunked-dc-java/master.svg?maxAge=2592000)](https://coveralls.io/github/saltyrtc/chunked-dc-java)
+[![Bintray](https://img.shields.io/bintray/v/saltyrtc/maven/chunked-dc.svg?maxAge=2592000)](https://bintray.com/saltyrtc/maven/chunked-dc)
 [![Java Version](https://img.shields.io/badge/java-7%2B-orange.svg)](https://github.com/saltyrtc/chunked-dc-java)
 [![License](https://img.shields.io/badge/license-MIT%20%2F%20Apache%202.0-blue.svg)](https://github.com/saltyrtc/chunked-dc-java)
 
@@ -13,6 +14,23 @@ This allows you to send the chunks to the receiver in any order.
 
 While the library was written for use with WebRTC DataChannels, it can also be
 used outside of that scope.
+
+## Installing
+
+The package is available on Bintray: https://bintray.com/saltyrtc/maven/chunked-dc
+
+Gradle:
+
+	compile 'saltyrtc:chunked-dc:0.1.0'
+
+Maven:
+
+	<dependency>
+	  <groupId>saltyrtc</groupId>
+	  <artifactId>chunked-dc</artifactId>
+	  <version>0.1.0</version>
+	  <type>pom</type>
+	</dependency>
 
 ## Usage
 
