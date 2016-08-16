@@ -45,7 +45,7 @@ publishing {
             from components.java
             groupId 'saltyrtc'
             artifactId 'chunked-dc'
-            version '0.1.0'
+            version '0.1.1'
         }
     }
 }
@@ -61,10 +61,10 @@ bintray {
         licenses = ['MIT', 'Apache-2.0']
         vcsUrl = 'https://github.com/saltyrtc/chunked-dc.git'
         version {
-            name = '0.1.0'
-            desc = 'ChunkedDC Library v0.1.0'
+            name = '0.1.1'
+            desc = 'ChunkedDC Library v0.1.1'
             released = new Date()
-            vcsTag = 'v0.1.0'
+            vcsTag = 'v0.1.1'
         }
     }
 }

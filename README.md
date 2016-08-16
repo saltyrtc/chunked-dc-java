@@ -22,7 +22,7 @@ The package is available on Bintray: https://bintray.com/saltyrtc/maven/chunked-
 Gradle:
 
 ```groovy
-compile 'saltyrtc:chunked-dc:0.1.0'
+compile 'saltyrtc:chunked-dc:0.1.1'
 ```
 
 Maven:
@@ -31,7 +31,7 @@ Maven:
 <dependency>
   <groupId>saltyrtc</groupId>
   <artifactId>chunked-dc</artifactId>
-  <version>0.1.0</version>
+  <version>0.1.1</version>
   <type>pom</type>
 </dependency>
 ```
