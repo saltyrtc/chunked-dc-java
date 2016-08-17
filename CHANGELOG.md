@@ -12,14 +12,6 @@ Possible log types:
 - `[security]` to invite users to upgrade in case of vulnerabilities.
 
 
-### v0.1.2 (2016-08-16)
+### v0.1.3 (2016-08-17)
 
-- Fix format of `groupId` according to maven naming guidelines
-
-### v0.1.1 (2016-08-16)
-
-- Compile JAR file for Java 7 instead of Java 8
-
-### v0.1.0 (2016-08-11)
-
-- Initial release
+- Initial working release

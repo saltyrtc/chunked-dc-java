@@ -39,13 +39,30 @@ jacocoTestReport {
     }
 }
 
+// custom tasks for creating source/javadoc jars
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+// add javadoc/source jar tasks as artifacts
+artifacts {
+    archives sourcesJar, javadocJar
+}
+
 publishing {
     publications {
         ChunkedDC(MavenPublication) {
             from components.java
             groupId 'org.saltyrtc.chunked-dc'
             artifactId 'chunked-dc'
-            version '0.1.2'
+            version '0.1.3'
+            artifact sourcesJar
+            artifact javadocJar
         }
     }
 }
@@ -61,10 +78,10 @@ bintray {
         licenses = ['MIT', 'Apache-2.0']
         vcsUrl = 'https://github.com/saltyrtc/chunked-dc.git'
         version {
-            name = '0.1.2'
-            desc = 'ChunkedDC Library v0.1.2'
+            name = '0.1.3'
+            desc = 'ChunkedDC Library v0.1.3'
             released = new Date()
-            vcsTag = 'v0.1.2'
+            vcsTag = 'v0.1.3'
         }
     }
 }
