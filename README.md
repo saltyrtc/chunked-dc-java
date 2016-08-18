@@ -17,12 +17,13 @@ used outside of that scope.
 
 ## Installing
 
-The package is available on Bintray: https://bintray.com/saltyrtc/maven/chunked-dc
+The package is available [on Bintray](https://bintray.com/saltyrtc/maven/chunked-dc)
+and on jcenter.
 
 Gradle:
 
 ```groovy
-compile 'org.saltyrtc.chunked-dc:chunked-dc:0.1.3'
+compile 'org.saltyrtc.chunked-dc:chunked-dc:0.1.4'
 ```
 
 Maven:
@@ -31,7 +32,7 @@ Maven:
 <dependency>
   <groupId>org.saltyrtc.chunked-dc</groupId>
   <artifactId>chunked-dc</artifactId>
-  <version>0.1.3</version>
+  <version>0.1.4</version>
   <type>pom</type>
 </dependency>
 ```

@@ -12,6 +12,10 @@ Possible log types:
 - `[security]` to invite users to upgrade in case of vulnerabilities.
 
 
+### v0.1.4 (2016-08-18)
+
+- Publish to jcenter
+
 ### v0.1.3 (2016-08-17)
 
 - Initial working release
