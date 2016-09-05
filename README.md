@@ -66,7 +66,8 @@ The example above will return 3 chunks: `[1, 2], [3, 4], [5]`.
 This library works both if chunks are sent in ordered or unordered manner.
 Because ordering is not guaranteed, the `Unchunker` instance accepts chunks
 and stores them in an internal data structure. As soon as all chunks of a
-message have arrived, a listener will be notified.
+message have arrived, a listener will be notified. Repeated chunks with the
+same serial will be ignored.
 
 Create the `Unchunker` instance:
 

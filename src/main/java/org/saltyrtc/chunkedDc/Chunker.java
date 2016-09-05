@@ -60,7 +60,7 @@ public class Chunker {
      * Return the next chunk, or `null` if there are no chunks remaining.
      */
     public ByteBuffer next() {
-        if (!hasNext()) {
+        if (!this.hasNext()) {
             return null;
         }
         // Allocate chunk buffer

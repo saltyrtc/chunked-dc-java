@@ -128,7 +128,7 @@ public class UnchunkerTest {
         unchunker.add(ByteBuffer.wrap(new byte[] { MORE, 0,0,0,0, 0,0,0,0 }));
         unchunker.add(ByteBuffer.wrap(new byte[] { MORE, 0,0,0,0, 0,0,0,1, 1,2 }));
         try {
-            unchunker.add(ByteBuffer.wrap(new byte[] { END, 0,0,0,0, 0,0,0,1, 3 }));
+            unchunker.add(ByteBuffer.wrap(new byte[] { END, 0,0,0,0, 0,0,0,2, 3 }));
             Assert.fail("No BufferOverflowException thrown");
         } catch (BufferOverflowException e) {
             // expected
@@ -138,7 +138,7 @@ public class UnchunkerTest {
     }
 
     /**
-     * Add two messages with same serial. Ignore the second.
+     * Add two chunks with same serial. Ignore the second.
      */
     @Test
     public void testDuplicateSerial() {
@@ -154,8 +154,7 @@ public class UnchunkerTest {
     }
 
     /**
-     * Add single messages with same serial.
-     * Make sure the internal store is cleaned afterwards.
+     * Ignore chunks with same serial even if they're end chunks.
      */
     @Test
     public void testDuplicateSerialSingleMsg() {
@@ -167,7 +166,7 @@ public class UnchunkerTest {
         unchunker.add(ByteBuffer.wrap(new byte[] { END,  0,0,0,0, 0,0,0,1, 5,6 }));
 
         assertEquals(1, logger.messages.size());
-        assertArrayEquals(new byte[] { 3, 4 }, logger.messages.get(0));
+        assertArrayEquals(new byte[] { 1, 2, 5, 6 }, logger.messages.get(0));
     }
 
     /**

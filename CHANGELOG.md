@@ -15,6 +15,7 @@ Possible log types:
 ### v0.1.5 (UNRELEASED)
 
 - [fixed] Validate bounds of message id in `Chunker`
+- [fixed] Fix handling of repeated chunks with same message id and serial
 
 ### v0.1.4 (2016-08-18)
 

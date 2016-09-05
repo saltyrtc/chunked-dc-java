@@ -67,7 +67,7 @@ public class Unchunker {
         public ByteBuffer merge() {
             // Preconditions
             if (!this.isComplete()) {
-                throw new IllegalStateException("Not all messages have arrived yet.");
+                throw new IllegalStateException("Not all chunks for this message have arrived yet.");
             }
 
             // Allocate buffer
@@ -112,6 +112,15 @@ public class Unchunker {
     public synchronized void add(ByteBuffer buf) {
         final Chunk chunk = new Chunk(buf);
 
+        // Ignore repeated chunks with the same serial
+        if (this.chunks.containsKey(chunk.getId())) {
+            for (Chunk item : this.chunks.get(chunk.getId()).chunks) {
+                if (item.getSerial() == chunk.getSerial()) {
+                    return;
+                }
+            }
+        }
+
         // If this is the only chunk in the message, return it immediately.
         if (chunk.isEndOfMessage() && chunk.getSerial() == 0) {
             this.notifyListener(ByteBuffer.wrap(chunk.getData()));
@@ -140,7 +149,7 @@ public class Unchunker {
     }
 
     /**
-     * If a listener is set, notify it about a finished message.
+     * If a message listener is set, notify it about a complete message.
      */
     private void notifyListener(ByteBuffer message) {
         if (this.listener != null) {
