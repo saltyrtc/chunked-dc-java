@@ -69,12 +69,12 @@ public class Chunker {
         final ByteBuffer chunk = ByteBuffer.allocate(chunkBytes + Common.HEADER_LENGTH);
 
         // Create header
-        final byte config = remaining > chunkBytes ? (byte) 0 : (byte) 1;
+        final byte options = remaining > chunkBytes ? (byte) 0 : (byte) 1;
         final int id = UnsignedHelper.getUnsignedInt(this.id);
         final int serial = UnsignedHelper.getUnsignedInt(this.nextSerial());
 
         // Write to chunk buffer
-        chunk.put(config);
+        chunk.put(options);
         chunk.putInt(id);
         chunk.putInt(serial);
         for (int i = 0; i < chunkBytes; i++) {

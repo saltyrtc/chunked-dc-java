@@ -30,8 +30,8 @@ public class Chunk implements Comparable<Chunk> {
         }
 
         // Read header
-        final byte config = bytes.get();
-        this.endOfMessage = (config & 0x01) == 1;
+        final byte options = bytes.get();
+        this.endOfMessage = (options & 0x01) == 1;
         this.id = UnsignedHelper.readUnsignedInt(bytes.getInt());
         this.serial = UnsignedHelper.readUnsignedInt(bytes.getInt());
 

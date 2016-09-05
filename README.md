@@ -113,13 +113,13 @@ A chunker instance splits up a ByteBuffer into multiple chunks.
 
 A header is added to each chunk:
 
-    |C|IIII|SSSS|
+    |O|IIII|SSSS|
 
-    - C: Configuration bitfield (1 byte)
+    - O: Options bitfield (1 byte)
     - I: Id (4 bytes)
     - S: Serial number (4 bytes)
 
-The configuration bitfield looks as follows:
+The options bitfield looks as follows:
 
     |000000E|
            ^---- End-of-message

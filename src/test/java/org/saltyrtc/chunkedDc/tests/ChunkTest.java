@@ -25,7 +25,7 @@ public class ChunkTest {
     @Test
     public void testValidChunk() {
         final ByteBuffer buf = ByteBuffer.wrap(new byte[] {
-                // Config
+                // Options
                 0,
                 // Id (0xff, 0xff, 0xff, 0xfe)
                 -1, -1, -1, -2,
@@ -46,7 +46,7 @@ public class ChunkTest {
     @Test
     public void testChunkNoData() {
         final ByteBuffer buf = ByteBuffer.wrap(new byte[] {
-                // Config
+                // Options
                 1,
                 // Id
                 0, 0, 2, 0,
