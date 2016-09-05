@@ -26,13 +26,17 @@ public class Chunker {
     /**
      * Create a Chunker instance.
      *
-     * @param id An identifier for the chunk. Must be betwen 0 and 2**32-1.
+     * @param id An identifier for the message. Must be between 0 and 2**32-1.
      * @param buf The ByteBuffer containing the data that should be chunked.
      * @param chunkSize The chunk size *excluding* header data.
+     * @throws IllegalArgumentException if message id is negative
      * @throws IllegalArgumentException if chunk size is less than 1
      * @throws IllegalArgumentException if buffer is empty
      */
     public Chunker(long id, ByteBuffer buf, int chunkSize) {
+        if (id < 0) {
+            throw new IllegalArgumentException("Message id may not be negative");
+        }
         if (chunkSize < 1) {
             throw new IllegalArgumentException("Chunk size must be at least 1");
         }

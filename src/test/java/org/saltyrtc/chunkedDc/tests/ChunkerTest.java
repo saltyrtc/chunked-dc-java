@@ -80,7 +80,7 @@ public class ChunkerTest {
      */
     @Test
     public void testChunkingSmallData() {
-        final ByteBuffer buf = ByteBuffer.wrap(new byte[] { 1, 2});
+        final ByteBuffer buf = ByteBuffer.wrap(new byte[] { 1, 2 });
         final Chunker chunker = new Chunker(ID, buf, 99);
         assertTrue(chunker.hasNext());
         assertArrayEquals(
@@ -133,6 +133,15 @@ public class ChunkerTest {
     public void testChunkEmpty() {
         final ByteBuffer buf = ByteBuffer.allocate(0);
         new Chunker(ID, buf, 2);
+    }
+
+    /**
+     * Does not allow an out-of-bounds message id.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testNegativeId() {
+        final ByteBuffer buf = ByteBuffer.wrap(new byte[] { 1, 2 });
+        new Chunker(-1, buf, 2);
     }
 
 }
