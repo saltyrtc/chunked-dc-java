@@ -151,6 +151,15 @@ To publish this library to Bintray:
     export BINTRAY_KEY=...
     ./gradlew build publish bintrayUpload
 
+## Signatures
+
+Signature verification can be enabled in a project using tools like [Gradle
+Witness](https://github.com/WhisperSystems/gradle-witness). Here are the SHA256
+sums for the released versions:
+
+- 0.1.5: `6ff2ab686c94de4d84c221c3094e755a2f40e991cf1197f10b8575bdda370720`
+- 0.1.4: `6fa77f2e80f63316ab12a3e64ffd1eeab12100cb4ea690b46d81de62d33e64c4`
+
 ## License
 
     Copyright (c) 2016 Threema GmbH / SaltyRTC Contributors
