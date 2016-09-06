@@ -23,7 +23,7 @@ and on jcenter.
 Gradle:
 
 ```groovy
-compile 'org.saltyrtc.chunked-dc:chunked-dc:0.1.4'
+compile 'org.saltyrtc.chunked-dc:chunked-dc:0.1.5'
 ```
 
 Maven:
@@ -32,7 +32,7 @@ Maven:
 <dependency>
   <groupId>org.saltyrtc.chunked-dc</groupId>
   <artifactId>chunked-dc</artifactId>
-  <version>0.1.4</version>
+  <version>0.1.5</version>
   <type>pom</type>
 </dependency>
 ```

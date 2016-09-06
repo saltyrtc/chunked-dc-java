@@ -12,7 +12,7 @@ Possible log types:
 - `[security]` to invite users to upgrade in case of vulnerabilities.
 
 
-### v0.1.5 (UNRELEASED)
+### v0.1.5 (2016-09-06)
 
 - [fixed] Validate bounds of message id in `Chunker`
 - [fixed] Fix handling of repeated chunks with same message id and serial
