@@ -63,7 +63,7 @@ public class ChunkTest {
     @Test(expected = IllegalArgumentException.class)
     public void testInvalidChunk() {
         final ByteBuffer buf = ByteBuffer.wrap(new byte[] { 1, 2, 3 });
-        final Chunk chunk = new Chunk(buf);
+        new Chunk(buf);
     }
 
     @Test

@@ -10,6 +10,7 @@ package org.saltyrtc.chunkedDc.tests;
 
 import org.junit.Test;
 import org.saltyrtc.chunkedDc.Chunker;
+import org.saltyrtc.chunkedDc.Common;
 
 import java.nio.ByteBuffer;
 
@@ -32,7 +33,7 @@ public class ChunkerTest {
     @Test
     public void testChunkingMultiples() {
         final ByteBuffer buf = ByteBuffer.wrap(new byte[] { 1, 2, 3, 4, 5, 6});
-        final Chunker chunker = new Chunker(ID, buf, 2);
+        final Chunker chunker = new Chunker(ID, buf, Common.HEADER_LENGTH + 2);
         assertTrue(chunker.hasNext());
         ByteBuffer firstBuf = chunker.next();
         assertEquals(11, firstBuf.remaining());
@@ -60,7 +61,7 @@ public class ChunkerTest {
     @Test
     public void testChunkingNonMultiples() {
         final ByteBuffer buf = ByteBuffer.wrap(new byte[] { 1, 2, 3, 4, 5, 6});
-        final Chunker chunker = new Chunker(ID, buf, 4);
+        final Chunker chunker = new Chunker(ID, buf, Common.HEADER_LENGTH + 4);
         assertTrue(chunker.hasNext());
         assertArrayEquals(
                 new byte[] { MORE, /*Id*/0,0,0,ID, /*Serial*/0,0,0,0, /*Data*/1,2,3,4 },
@@ -81,7 +82,7 @@ public class ChunkerTest {
     @Test
     public void testChunkingSmallData() {
         final ByteBuffer buf = ByteBuffer.wrap(new byte[] { 1, 2 });
-        final Chunker chunker = new Chunker(ID, buf, 99);
+        final Chunker chunker = new Chunker(ID, buf, Common.HEADER_LENGTH + 99);
         assertTrue(chunker.hasNext());
         assertArrayEquals(
                 new byte[] { END, /*Id*/0,0,0,ID, /*Serial*/0,0,0,0, /*Data*/1,2 },
@@ -97,7 +98,7 @@ public class ChunkerTest {
     @Test
     public void testChunkSize1() {
         final ByteBuffer buf = ByteBuffer.wrap(new byte[] { 1, 2 });
-        final Chunker chunker = new Chunker(ID, buf, 1);
+        final Chunker chunker = new Chunker(ID, buf, Common.HEADER_LENGTH + 1);
         assertArrayEquals(
                 new byte[] { MORE, /*Id*/0,0,0,ID, /*Serial*/0,0,0,0, /*Data*/1 },
                 chunker.next().array()
@@ -118,6 +119,15 @@ public class ChunkerTest {
     }
 
     /**
+     * Does not allow chunk size of 9.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testChunkSize9() {
+        final ByteBuffer buf = ByteBuffer.wrap(new byte[] { 1, 2 });
+        new Chunker(ID, buf, Common.HEADER_LENGTH);
+    }
+
+    /**
      * Does not allow negative chunk size.
      */
     @Test(expected = IllegalArgumentException.class)
@@ -132,7 +142,7 @@ public class ChunkerTest {
     @Test(expected = IllegalArgumentException.class)
     public void testChunkEmpty() {
         final ByteBuffer buf = ByteBuffer.allocate(0);
-        new Chunker(ID, buf, 2);
+        new Chunker(ID, buf, Common.HEADER_LENGTH + 2);
     }
 
     /**
@@ -141,7 +151,7 @@ public class ChunkerTest {
     @Test(expected = IllegalArgumentException.class)
     public void testNegativeId() {
         final ByteBuffer buf = ByteBuffer.wrap(new byte[] { 1, 2 });
-        new Chunker(-1, buf, 2);
+        new Chunker(-1, buf, Common.HEADER_LENGTH + 2);
     }
 
 }

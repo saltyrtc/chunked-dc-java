@@ -20,7 +20,7 @@ public class Chunker {
 
     private final long id;
     private final ByteBuffer buf;
-    private final int chunkSize;
+    private final int chunkDataSize;
     private int chunkId;
 
     /**
@@ -28,7 +28,7 @@ public class Chunker {
      *
      * @param id An identifier for the message. Must be between 0 and 2**32-1.
      * @param buf The ByteBuffer containing the data that should be chunked.
-     * @param chunkSize The chunk size *excluding* header data.
+     * @param chunkSize The chunk size *including* header data.
      * @throws IllegalArgumentException if message id is negative
      * @throws IllegalArgumentException if chunk size is less than 1
      * @throws IllegalArgumentException if buffer is empty
@@ -37,15 +37,15 @@ public class Chunker {
         if (id < 0) {
             throw new IllegalArgumentException("Message id may not be negative");
         }
-        if (chunkSize < 1) {
-            throw new IllegalArgumentException("Chunk size must be at least 1");
+        if (chunkSize < (Common.HEADER_LENGTH + 1)) {
+            throw new IllegalArgumentException("Chunk size must be at least " + (Common.HEADER_LENGTH + 1));
         }
         if (!buf.hasRemaining()) {
             throw new IllegalArgumentException("Buffer may not be empty");
         }
         this.id = id;
         this.buf = buf;
-        this.chunkSize = chunkSize;
+        this.chunkDataSize = chunkSize - Common.HEADER_LENGTH;
         this.chunkId = 0;
     }
 
@@ -65,7 +65,7 @@ public class Chunker {
         }
         // Allocate chunk buffer
         final int remaining = this.buf.remaining();
-        final int chunkBytes = remaining < this.chunkSize ? remaining : this.chunkSize;
+        final int chunkBytes = remaining < this.chunkDataSize ? remaining : this.chunkDataSize;
         final ByteBuffer chunk = ByteBuffer.allocate(chunkBytes + Common.HEADER_LENGTH);
 
         // Create header
