@@ -12,6 +12,10 @@ Possible log types:
 - `[security]` to invite users to upgrade in case of vulnerabilities.
 
 
+### v0.2.0 (2016-09-27)
+
+- [changed] The chosen chunk size now includes the header size
+
 ### v0.1.5 (2016-09-06)
 
 - [fixed] Validate bounds of message id in `Chunker`
