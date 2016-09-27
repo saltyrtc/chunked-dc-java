@@ -16,6 +16,9 @@ This allows you to send the chunks to the receiver in any order.
 While the library was written for use with WebRTC DataChannels, it can also be
 used outside of that scope.
 
+The full specification for the chunking format can be found
+[here](https://github.com/saltyrtc/saltyrtc-meta/blob/master/Chunking.md).
+
 ## Installing
 
 The package is available [on Bintray](https://bintray.com/saltyrtc/maven/chunked-dc)
@@ -46,8 +49,8 @@ For each message that you want to split into chunks, pass it to a `Chunker`.
 
 ```java
 long messageId = 1337;
-ByteBuffer message = ByteBuffer.wrap(new byte[] { 1, 2, 3, 4, 5 });
-int chunkSize = 2;
+ByteBuffer message = ByteBuffer.wrap(new byte[] { 1, 2, 3, 4, 5, 6, 7, 8 });
+int chunkSize = 12;
 Chunker chunker = new Chunker(messageId, message, chunkSize);
 ```
 
@@ -60,7 +63,7 @@ while (chunker.hasNext()) {
 }
 ```
 
-The example above will return 3 chunks: `[1, 2], [3, 4], [5]`.
+The example above will return 3 chunks: `[1, 2, 3], [4, 5, 6], [7, 8]`.
 
 ### Unchunking
 
@@ -110,27 +113,8 @@ All classes exposed by this library should be thread safe.
 
 ## Format
 
-A chunker instance splits up a ByteBuffer into multiple chunks.
-
-A header is added to each chunk:
-
-    |O|IIII|SSSS|
-
-    - O: Options bitfield (1 byte)
-    - I: Id (4 bytes)
-    - S: Serial number (4 bytes)
-
-The options bitfield looks as follows:
-
-    |000000E|
-           ^---- End-of-message
-
-The Id can be any number, but it's recommended to start at 0 and
-increment the counter for each message.
-
-The Serial must start at 0 and be incremented after every message.
-
-No chunk may contain more bytes than the first one.
+The chunking format is described
+[in the specification](https://github.com/saltyrtc/saltyrtc-meta/blob/master/Chunking.md).
 
 ## Testing
 

@@ -10,14 +10,12 @@ package org.saltyrtc.chunkedDc.tests;
 
 import org.junit.Test;
 import org.saltyrtc.chunkedDc.Chunk;
-import org.saltyrtc.chunkedDc.Chunker;
 
 import java.nio.ByteBuffer;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 public class ChunkTest {
@@ -63,7 +61,7 @@ public class ChunkTest {
     @Test(expected = IllegalArgumentException.class)
     public void testInvalidChunk() {
         final ByteBuffer buf = ByteBuffer.wrap(new byte[] { 1, 2, 3 });
-        final Chunk chunk = new Chunk(buf);
+        new Chunk(buf);
     }
 
     @Test
