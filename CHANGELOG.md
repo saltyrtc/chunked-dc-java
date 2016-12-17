@@ -12,6 +12,10 @@ Possible log types:
 - `[security]` to invite users to upgrade in case of vulnerabilities.
 
 
+### v1.0.0 (2016-12-17)
+
+- No change compared to v0.2.0. But the relase should be stable now.
+
 ### v0.2.0 (2016-09-27)
 
 - [changed] The chosen chunk size now includes the header size
