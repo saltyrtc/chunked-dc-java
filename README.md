@@ -128,17 +128,10 @@ To run tests and generate coverage reports:
 
 You'll find the reports at `build/reports/jacoco/test/html/index.html`.
 
-## Publishing
 
-To publish this library to Bintray:
+## Hashes
 
-    export BINTRAY_USER=...
-    export BINTRAY_KEY=...
-    ./gradlew build publish bintrayUpload
-
-## Signatures
-
-Signature verification can be enabled in a project using tools like [Gradle
+Hash verification can be enabled in a project using tools like [Gradle
 Witness](https://github.com/WhisperSystems/gradle-witness). Here are the SHA256
 sums for the released versions:
 
@@ -149,7 +142,7 @@ sums for the released versions:
 ## License
 
     Copyright (c) 2016 Threema GmbH / SaltyRTC Contributors
-    
+
     Licensed under the Apache License, Version 2.0, <see LICENSE-APACHE file>
     or the MIT license <see LICENSE-MIT file>, at your option. This file may not be
     copied, modified, or distributed except according to those terms.
