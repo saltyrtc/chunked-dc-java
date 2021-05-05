@@ -2,9 +2,8 @@ plugins {
     // Base
     id 'java'
 
-    // Coverage reporting on coveralls.io
+    // Coverage reporting
     id 'jacoco'
-    id 'com.github.kt3k.coveralls' version '2.6.3'
 
     // Publishing on bintray
     id 'maven'
@@ -34,7 +33,7 @@ test {
 
 jacocoTestReport {
     reports {
-        xml.enabled = true // coveralls plugin depends on xml format report
+        xml.enabled = true
         html.enabled = true
     }
 }
