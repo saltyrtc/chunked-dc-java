@@ -12,6 +12,12 @@ Possible log types:
 - `[security]` to invite users to upgrade in case of vulnerabilities.
 
 
+### v1.0.1 (2021-05-05)
+
+- [changed] Upgrade to Gradle 6
+- [changed] Drop Java 7
+- [changed] Move from Bintray / JCenter to Maven Central
+
 ### v1.0.0 (2016-12-17)
 
 - No change compared to v0.2.0. But the relase should be stable now.
