@@ -1,6 +1,6 @@
 # Binary Chunking for WebRTC DataChannels
 
-[![Travis](https://img.shields.io/travis/saltyrtc/chunked-dc-java/master.svg)](https://travis-ci.org/saltyrtc/chunked-dc-java)
+[![CI](https://github.com/saltyrtc/chunked-dc-java/workflows/CI/badge.svg)](#)
 [![Coverage](https://img.shields.io/coveralls/saltyrtc/chunked-dc-java/master.svg?maxAge=2592000)](https://coveralls.io/github/saltyrtc/chunked-dc-java)
 [![Codacy](https://img.shields.io/codacy/grade/a9eed1d7dd24410fa522577e750c58a1/master.svg)](https://www.codacy.com/app/saltyrtc/chunked-dc-java/dashboard)
 [![Bintray](https://img.shields.io/bintray/v/saltyrtc/maven/chunked-dc.svg?maxAge=2592000)](https://bintray.com/saltyrtc/maven/chunked-dc)

@@ -1,0 +1,39 @@
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+name: CI
+
+jobs:
+  build:
+    name: build library
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        #java-version: [7, 8, 11, 16]
+        java-version: [7, 8]
+    steps:
+
+      # Setup environment
+      - uses: actions/checkout@v2
+      - uses: actions/setup-java@v1
+        with:
+          java-version: ${{ matrix.java-version }}
+
+      # Set up caching
+      - name: Cache Gradle packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
+          restore-keys: ${{ runner.os }}-gradle
+
+      # Build
+      - name: Build
+        run: ./gradlew assemble
+
+      # Test
+      - name: Run tests
+        run: ./gradlew test
