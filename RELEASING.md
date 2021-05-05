@@ -4,8 +4,9 @@ Set variables:
 
     export VERSION=X.Y.Z
     export GPG_KEY=E7ADD9914E260E8B35DFB50665FDE935573ACDA6
-    export BINTRAY_USER=...
-    export BINTRAY_KEY=...
+
+Ensure that `ossrhUsername` and `ossrhPassword` are defined in your
+`~/.gradle/gradle.properties` file.
 
 Update version numbers:
 
@@ -13,19 +14,21 @@ Update version numbers:
 
 Build:
 
-    ./gradlew build publish
-
-Add hash to README.md:
-
-    sha256sum build/libs/chunked-dc.jar
+    rm -r build
+    ./gradlew build
 
 Add and commit:
 
     git commit -m "Release v${VERSION}"
 
-Publish the library to Bintray:
+Publish the library to Sonatype OSS / Maven Central:
 
-    ./gradlew bintrayUpload
+    ./gradlew publish
+
+Afterwards, go to https://s01.oss.sonatype.org/#stagingRepositories and:
+
+- Close the repository
+- Release the repository
 
 Tag and push:
 

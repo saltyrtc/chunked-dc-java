@@ -5,14 +5,19 @@ plugins {
     // Coverage reporting
     id 'jacoco'
 
-    // Publishing on bintray
+    // Publishing
     id 'maven'
     id 'maven-publish'
-    id 'com.jfrog.bintray' version '1.7'
+    id 'signing'
 }
 
 targetCompatibility = '1.7'
 sourceCompatibility = '1.7'
+
+ext {
+    groupId = 'org.saltyrtc'
+    libraryVersion = '1.0.1'
+}
 
 // In this section you declare where to find the dependencies of your project
 repositories {
@@ -57,30 +62,61 @@ publishing {
     publications {
         ChunkedDC(MavenPublication) {
             from components.java
-            groupId 'org.saltyrtc.chunked-dc'
-            artifactId 'chunked-dc'
-            version '1.0.0'
+
             artifact sourcesJar
             artifact javadocJar
+
+            groupId = project.ext.groupId
+            artifactId = project.name
+            version = project.ext.libraryVersion
+
+            pom {
+                name = 'ChunkedDC'
+                description = 'Binary Chunking for WebRTC DataChannels (and other use cases)'
+                url = 'https://github.com/saltyrtc/chunked-dc'
+
+                scm {
+                    url = 'https://github.com/saltyrtc/chunked-dc.git'
+                }
+
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'LICENSE-APACHE'
+                    }
+                    license {
+                        name = 'The MIT License'
+                        url = 'LICENSE-MIT'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id = 'db'
+                        name = 'Danilo Bargen'
+                        email = 'danilo.bargen@threema.ch'
+                    }
+                }
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            def releasesRepoUrl = 'https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/'
+            def snapshotsRepoUrl = 'https://s01.oss.sonatype.org/content/repositories/snapshots'
+            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+            if (project.hasProperty('ossrhUsername') && project.hasProperty('ossrhPassword')) {
+                credentials {
+                    username ossrhUsername
+                    password ossrhPassword
+                }
+            }
         }
     }
 }
 
-bintray {
-    user = System.getenv('BINTRAY_USER')
-    key = System.getenv('BINTRAY_KEY')
-    publications = ['ChunkedDC']
-    pkg {
-        repo = 'maven'
-        name = 'chunked-dc'
-        userOrg = 'saltyrtc'
-        licenses = ['MIT', 'Apache-2.0']
-        vcsUrl = 'https://github.com/saltyrtc/chunked-dc.git'
-        version {
-            name = '1.0.0'
-            desc = 'ChunkedDC Library v1.0.0'
-            released = new Date()
-            vcsTag = 'v1.0.0'
-        }
-    }
+signing {
+    useGpgCmd() // Use gpg-agent. For config options, see `gradle.properties`.
+    sign publishing.publications.ChunkedDC
 }
