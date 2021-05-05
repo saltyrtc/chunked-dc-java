@@ -3,7 +3,6 @@
 [![CI](https://github.com/saltyrtc/chunked-dc-java/workflows/CI/badge.svg)](#)
 [![Coverage](https://img.shields.io/coveralls/saltyrtc/chunked-dc-java/master.svg?maxAge=2592000)](https://coveralls.io/github/saltyrtc/chunked-dc-java)
 [![Codacy](https://img.shields.io/codacy/grade/a9eed1d7dd24410fa522577e750c58a1/master.svg)](https://www.codacy.com/app/saltyrtc/chunked-dc-java/dashboard)
-[![Bintray](https://img.shields.io/bintray/v/saltyrtc/maven/chunked-dc.svg?maxAge=2592000)](https://bintray.com/saltyrtc/maven/chunked-dc)
 [![Java Version](https://img.shields.io/badge/java-8%2B-orange.svg)](https://github.com/saltyrtc/chunked-dc-java)
 [![License](https://img.shields.io/badge/license-MIT%20%2F%20Apache%202.0-blue.svg)](https://github.com/saltyrtc/chunked-dc-java)
 
@@ -21,22 +20,21 @@ The full specification for the chunking format can be found
 
 ## Installing
 
-The package is available [on Bintray](https://bintray.com/saltyrtc/maven/chunked-dc)
-and on jcenter.
+The package is available on Maven Central.
 
 Gradle:
 
 ```groovy
-compile 'org.saltyrtc.chunked-dc:chunked-dc:1.0.0'
+compile 'org.saltyrtc:chunked-dc:1.0.1'
 ```
 
 Maven:
 
 ```xml
 <dependency>
-  <groupId>org.saltyrtc.chunked-dc</groupId>
+  <groupId>org.saltyrtc</groupId>
   <artifactId>chunked-dc</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
   <type>pom</type>
 </dependency>
 ```
@@ -116,7 +114,7 @@ All classes exposed by this library should be thread safe.
 The chunking format is described
 [in the specification](https://github.com/saltyrtc/saltyrtc-meta/blob/master/Chunking.md).
 
-## Testing
+## Unit Testing
 
 To test from the command line:
 
@@ -128,21 +126,30 @@ To run tests and generate coverage reports:
 
 You'll find the reports at `build/reports/jacoco/test/html/index.html`.
 
+## Manual testing
 
-## Hashes
+Create a local publication (usually at `$HOME/.m2/repository/`):
 
-Hash verification can be enabled in a project using tools like [Gradle
-Witness](https://github.com/WhisperSystems/gradle-witness). Here are the SHA256
-sums for the released versions:
+    ./gradlew publishToMavenLocal
 
-- 1.0.0: `32e2b3f90ba64057e43acc49c3d7c33f1cc5492bfadebcfdfcf2de603b415948`
-- 0.2.0: `e32ae9c0df9b2b3e5b3d2c8699c966b1d0fad89f76d2cab4be60268567415631`
-- 0.1.5: `6ff2ab686c94de4d84c221c3094e755a2f40e991cf1197f10b8575bdda370720`
-- 0.1.4: `6fa77f2e80f63316ab12a3e64ffd1eeab12100cb4ea690b46d81de62d33e64c4`
+Include it in your project like this:
+
+    repositories {
+        ...
+        mavenLocal()
+    }
+
+## Signing
+
+Releases are signed with the following PGP ED25519 public key:
+
+    sec   ed25519 2021-05-05 [SC] [expires: 2025-05-04]
+          27655CDD319B686A73661526DCD186BEB204C8FD
+    uid           SaltyRTC (Release signing key)
 
 ## License
 
-    Copyright (c) 2016 Threema GmbH / SaltyRTC Contributors
+    Copyright (c) 2016-2021 Threema GmbH / SaltyRTC Contributors
 
     Licensed under the Apache License, Version 2.0, <see LICENSE-APACHE file>
     or the MIT license <see LICENSE-MIT file>, at your option. This file may not be
